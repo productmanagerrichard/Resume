@@ -193,15 +193,9 @@
                 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
             animation: sectionEntry 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
             animation-fill-mode: both;
-            opacity: 0;
-            transform: translateY(40px);
+            opacity: 1;
+            transform: translateY(0);
         }
-        
-        .section:nth-child(2) { animation-delay: 0.1s; }
-        .section:nth-child(3) { animation-delay: 0.2s; }
-        .section:nth-child(4) { animation-delay: 0.3s; }
-        .section:nth-child(5) { animation-delay: 0.4s; }
-        .section:nth-child(6) { animation-delay: 0.5s; }
         
         .section-header {
             display: flex;
@@ -463,110 +457,7 @@
             animation-duration: 22s;
         }
         
-        @keyframes heroEntry {
-            0% {
-                opacity: 0;
-                transform: translateY(60px) scale(0.95);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-        
-        @keyframes sectionEntry {
-            0% {
-                opacity: 0;
-                transform: translateY(40px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        @keyframes fadeInUp {
-            0% {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        @keyframes avatarPulse {
-            0%, 100% {
-                transform: scale(1);
-                box-shadow: 
-                    0 20px 40px rgba(99, 102, 241, 0.3),
-                    0 0 0 4px rgba(255, 255, 255, 0.1) inset;
-            }
-            50% {
-                transform: scale(1.05);
-                box-shadow: 
-                    0 25px 50px rgba(99, 102, 241, 0.4),
-                    0 0 0 6px rgba(255, 255, 255, 0.2) inset;
-            }
-        }
-        
-        @keyframes shimmer {
-            0% { left: -100%; }
-            100% { left: 100%; }
-        }
-        
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-        
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0px) translateX(0px) rotate(0deg);
-            }
-            25% {
-                transform: translateY(-20px) translateX(10px) rotate(90deg);
-            }
-            50% {
-                transform: translateY(15px) translateX(-15px) rotate(180deg);
-            }
-            75% {
-                transform: translateY(-10px) translateX(5px) rotate(270deg);
-            }
-        }
-        
-        .scroll-indicator {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.1);
-            z-index: 1000;
-        }
-        
-        .scroll-progress {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
-            width: 0%;
-            transition: width 0.1s ease;
-        }
-        
-        @media (max-width: 1200px) {
-            .hero-grid {
-                grid-template-columns: 1fr;
-                gap: 40px;
-                text-align: center;
-            }
-            
-            .contact-panel {
-                min-width: auto;
-                max-width: 400px;
-                margin: 0 auto;
-            }
-        }
-        
+        /* Chatbot Styles */
         .chat-toggle {
             position: fixed;
             bottom: 30px;
@@ -786,6 +677,152 @@
             animation-delay: 0.4s;
         }
         
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+        }
+        
+        .scroll-progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+
+        /* Error states for chat */
+        .chat-error {
+            background: rgba(220, 53, 69, 0.1);
+            border: 1px solid rgba(220, 53, 69, 0.2);
+            color: #721c24;
+        }
+
+        .chat-retry-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+
+        .chat-retry-btn:hover {
+            background: #c82333;
+        }
+
+        .connection-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8rem;
+            padding: 8px 12px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+        }
+
+        .status-online {
+            background: rgba(40, 167, 69, 0.1);
+            color: #155724;
+        }
+
+        .status-offline {
+            background: rgba(220, 53, 69, 0.1);
+            color: #721c24;
+        }
+
+        .status-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .indicator-online {
+            background: #28a745;
+        }
+
+        .indicator-offline {
+            background: #dc3545;
+        }
+        
+        @keyframes heroEntry {
+            0% {
+                opacity: 0;
+                transform: translateY(60px) scale(0.95);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        @keyframes sectionEntry {
+            0% {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes avatarPulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 
+                    0 20px 40px rgba(99, 102, 241, 0.3),
+                    0 0 0 4px rgba(255, 255, 255, 0.1) inset;
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 
+                    0 25px 50px rgba(99, 102, 241, 0.4),
+                    0 0 0 6px rgba(255, 255, 255, 0.2) inset;
+            }
+        }
+        
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) translateX(0px) rotate(0deg);
+            }
+            25% {
+                transform: translateY(-20px) translateX(10px) rotate(90deg);
+            }
+            50% {
+                transform: translateY(15px) translateX(-15px) rotate(180deg);
+            }
+            75% {
+                transform: translateY(-10px) translateX(5px) rotate(270deg);
+            }
+        }
+        
         @keyframes chatPulse {
             0%, 100% {
                 box-shadow: 0 8px 32px rgba(99, 102, 241, 0.4);
@@ -816,7 +853,21 @@
                 opacity: 1;
             }
         }
-
+        
+        @media (max-width: 1200px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+            
+            .contact-panel {
+                min-width: auto;
+                max-width: 400px;
+                margin: 0 auto;
+            }
+        }
+        
         @media (max-width: 768px) {
             .container {
                 padding: 20px 16px;
@@ -865,23 +916,23 @@
     </style>
 </head>
 <body>
-    <div class="grain-overlay"></div>
-    <div class="scroll-indicator">
+    <div class="grain-overlay" role="presentation" aria-hidden="true"></div>
+    <div class="scroll-indicator" role="progressbar" aria-label="Page scroll progress">
         <div class="scroll-progress"></div>
     </div>
     
-    <div class="floating-orbs">
-        <div class="orb"></div>
-        <div class="orb"></div>
-        <div class="orb"></div>
-        <div class="orb"></div>
+    <div class="floating-orbs" role="presentation" aria-hidden="true">
+        <div class="orb" aria-hidden="true"></div>
+        <div class="orb" aria-hidden="true"></div>
+        <div class="orb" aria-hidden="true"></div>
+        <div class="orb" aria-hidden="true"></div>
     </div>
     
     <div class="container">
-        <section class="hero">
+        <section class="hero" role="banner">
             <div class="hero-grid">
                 <div class="avatar-container">
-                    <div class="avatar">RG</div>
+                    <div class="avatar" role="img" aria-label="Richard Gross profile avatar with initials RG">RG</div>
                 </div>
                 
                 <div class="hero-content">
@@ -892,35 +943,35 @@
                     </div>
                 </div>
                 
-                <div class="contact-panel">
-                    <div class="contact-item">
-                        <div class="contact-icon">📍</div>
+                <div class="contact-panel" role="complementary" aria-label="Contact information">
+                    <div class="contact-item" role="button" tabindex="0" aria-label="Location: Washington, DC 20003">
+                        <div class="contact-icon" aria-hidden="true">📍</div>
                         <div>Washington, DC 20003</div>
                     </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">📞</div>
+                    <div class="contact-item" role="button" tabindex="0" aria-label="Phone: 850-387-6889">
+                        <div class="contact-icon" aria-hidden="true">📞</div>
                         <div>850-387-6889</div>
                     </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">✉️</div>
+                    <div class="contact-item" role="button" tabindex="0" aria-label="Email: product.manager.richard@gmail.com">
+                        <div class="contact-icon" aria-hidden="true">✉️</div>
                         <div>product.manager.richard@gmail.com</div>
                     </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">💼</div>
+                    <div class="contact-item" role="button" tabindex="0" aria-label="LinkedIn profile">
+                        <div class="contact-icon" aria-hidden="true">💼</div>
                         <div>linkedin.com/in/richardgross006</div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="section">
+        <section class="section" role="main">
             <div class="section-header">
-                <div class="section-icon">💼</div>
+                <div class="section-icon" aria-hidden="true">💼</div>
                 <h2>Professional Experience</h2>
             </div>
             
             <div class="experience-grid">
-                <div class="experience-card">
+                <article class="experience-card">
                     <div class="job-header">
                         <div class="job-info">
                             <h3>Senior Product Manager, Loyalty and Martech</h3>
@@ -938,9 +989,9 @@
                         <li>Oversaw development of internal tools supporting customer support, call center operations, and gym network account management.</li>
                         <li>Leveraged AI tools to create interactive feature prototypes, accelerating product requirement validation during early design phases.</li>
                     </ul>
-                </div>
+                </article>
 
-                <div class="experience-card">
+                <article class="experience-card">
                     <div class="job-header">
                         <div class="job-info">
                             <h3>Senior Product Manager, Alerting Applications</h3>
@@ -954,9 +1005,9 @@
                         <li>Partnered with engineering and data science teams to ensure feasibility and scalability of complex analytical and ML features.</li>
                         <li>Used stakeholder feedback and usage analytics to iteratively optimize key platform capabilities and prioritize roadmap features.</li>
                     </ul>
-                </div>
+                </article>
 
-                <div class="experience-card">
+                <article class="experience-card">
                     <div class="job-header">
                         <div class="job-info">
                             <h3>Senior Product Manager, Connected Solutions</h3>
@@ -971,9 +1022,9 @@
                         <li>Served as the main product liaison between customers, QA, engineering, and compliance teams to ensure scalability and audit readiness.</li>
                         <li>Integrated multiple third-party platforms including DocuSign, Twilio (SMS/Chat/Video), and Uber Health to expand the feature set.</li>
                     </ul>
-                </div>
+                </article>
 
-                <div class="experience-card">
+                <article class="experience-card">
                     <div class="job-header">
                         <div class="job-info">
                             <h3>Product Manager, Patient Engagement</h3>
@@ -987,9 +1038,9 @@
                         <li>Delivered a virtual visit solution in under <strong>3 months</strong> at the onset of the COVID-19 pandemic, safeguarding 14 ongoing trials and over <strong>$6.3M in revenue</strong>.</li>
                         <li>Introduced digital scheduling, remote content libraries, and other self-service features to improve protocol adherence and user engagement.</li>
                     </ul>
-                </div>
+                </article>
 
-                <div class="experience-card">
+                <article class="experience-card">
                     <div class="job-header">
                         <div class="job-info">
                             <h3>Product Manager, Advisor Products</h3>
@@ -1003,9 +1054,9 @@
                         <li>Reduced account opening cycle times by nearly <strong>50%</strong> by digitizing forms and optimizing operational approval workflows.</li>
                         <li>Designed and launched a model marketplace for investment strategies, contributing to an <strong>8% ($720M) increase</strong> in assets under management.</li>
                     </ul>
-                </div>
+                </article>
 
-                <div class="experience-card">
+                <article class="experience-card">
                     <div class="job-header">
                         <div class="job-info">
                             <h3>Product Manager, Patient Experience</h3>
@@ -1019,9 +1070,9 @@
                         <li>Designed an SMS-based appointment reminder system that sent over <strong>97,000 messages</strong> in the first year and reduced no-show rates by <strong>9%</strong>.</li>
                         <li>Digitized clinic intake forms, reducing documentation time by <strong>15%</strong> and cutting transcription errors by <strong>82%</strong>.</li>
                     </ul>
-                </div>
+                </article>
 
-                <div class="experience-card">
+                <article class="experience-card">
                     <div class="job-header">
                         <div class="job-info">
                             <h3>Product Manager, Home Health Devices / Project Manager, Device Integrations</h3>
@@ -1033,5 +1084,500 @@
                     <ul class="achievements">
                         <li>Led development of a hybrid hardware/software home health monitoring platform for chronic care, integrating <strong>12 connected medical devices</strong>.</li>
                         <li>Piloted deployment to <strong>1,500+ patient homes</strong>, achieving strong adoption and improving remote health data collection.</li>
-                        <li>Delivered <strong>24+ complex system integration projects</strong> for hospital clients, accounting for over <strong>60% of company revenue.</li>
+                        <li>Delivered <strong>24+ complex system integration projects</strong> for hospital clients, accounting for over <strong>60% of company revenue</strong>.</li>
                         <li>Directed creation and testing of <strong>30+ device communication protocols</strong> to ensure compatibility with EMR/EHR systems.</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-header">
+                <div class="section-icon" aria-hidden="true">🚀</div>
+                <h2>Skills & Tools</h2>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Product Management</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Product Strategy & Roadmapping</span>
+                        <span class="skill-tag">Business & Technical Requirements</span>
+                        <span class="skill-tag">Agile/Scrum</span>
+                        <span class="skill-tag">Go-to-Market Execution</span>
+                        <span class="skill-tag">Stakeholder Collaboration</span>
+                        <span class="skill-tag">Remote Team Leadership</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Technology & AI</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">AI/ML Strategy</span>
+                        <span class="skill-tag">AI-Driven Prototyping & Coding</span>
+                        <span class="skill-tag">Generative AI for Product Design</span>
+                        <span class="skill-tag">API & System Integrations</span>
+                        <span class="skill-tag">iOS</span>
+                        <span class="skill-tag">Android</span>
+                        <span class="skill-tag">Web Applications</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Data & Analytics</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Data-Informed Decision Making & KPIs</span>
+                        <span class="skill-tag">A/B Testing</span>
+                        <span class="skill-tag">UserTesting</span>
+                        <span class="skill-tag">GA4</span>
+                        <span class="skill-tag">Tableau</span>
+                        <span class="skill-tag">Datadog</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Martech & Personalization</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Salesforce Marketing Cloud</span>
+                        <span class="skill-tag">Hubspot</span>
+                        <span class="skill-tag">Google Ads</span>
+                        <span class="skill-tag">Facebook Ads</span>
+                        <span class="skill-tag">AWS Personalize</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Development Tools</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Jira</span>
+                        <span class="skill-tag">Confluence</span>
+                        <span class="skill-tag">Figma</span>
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">Vibe Coding</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Integrations & Payments</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Wearable Integrations</span>
+                        <span class="skill-tag">Twilio</span>
+                        <span class="skill-tag">DocuSign</span>
+                        <span class="skill-tag">Stripe</span>
+                        <span class="skill-tag">Braintree</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-header">
+                <div class="section-icon" aria-hidden="true">🎓</div>
+                <h2>Education & Military Service</h2>
+            </div>
+            <div class="experience-grid">
+                <article class="experience-card">
+                    <div class="job-header">
+                        <div class="job-info">
+                            <h3>Bachelor of Science – Liberal Arts</h3>
+                            <div class="company">Excelsior College</div>
+                            <div class="location">Albany, NY</div>
+                        </div>
+                        <div class="duration-badge">05/2010</div>
+                    </div>
+                </article>
+                <article class="experience-card">
+                    <div class="job-header">
+                        <div class="job-info">
+                            <h3>Operations Specialist</h3>
+                            <div class="company">U.S. Navy</div>
+                            <div class="location">Various Locations</div>
+                        </div>
+                        <div class="duration-badge">05/2002 – 03/2011</div>
+                    </div>
+                    <ul class="achievements">
+                        <li>Served with distinction in naval operations, developing leadership, teamwork, and technical skills that translate directly to product management excellence.</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+    </div>
+
+    <!-- Chatbot -->
+    <button class="chat-toggle" onclick="toggleChat()" aria-label="Open chat assistant">💬</button>
+    
+    <div class="chat-container" id="chatContainer" role="dialog" aria-labelledby="chatHeader" aria-hidden="true">
+        <div class="chat-header" id="chatHeader">
+            <div class="chat-avatar" aria-hidden="true">AI</div>
+            <div class="chat-info">
+                <h3>Ask about Richard</h3>
+                <p>I can answer questions about his experience</p>
+            </div>
+        </div>
+        
+        <div class="connection-status" id="connectionStatus">
+            <div class="status-indicator indicator-offline"></div>
+            <span>Chatbot currently offline - Contact Richard directly</span>
+        </div>
+        
+        <div class="chat-messages" id="chatMessages" role="log" aria-live="polite" aria-label="Chat conversation">
+            <div class="chat-message">
+                <div class="message-avatar ai" aria-hidden="true">AI</div>
+                <div class="message-content">
+                    Hi! I'm currently offline for maintenance. For questions about Richard Gross's experience and qualifications, please contact him directly at product.manager.richard@gmail.com or 850-387-6889.
+                </div>
+            </div>
+        </div>
+        
+        <div class="chat-input-container">
+            <form class="chat-input-form" onsubmit="sendMessage(event)">
+                <textarea 
+                    class="chat-input" 
+                    id="chatInput" 
+                    placeholder="Chat is currently offline..."
+                    rows="1"
+                    disabled
+                    aria-label="Chat message input"
+                ></textarea>
+                <button type="submit" class="chat-send" id="sendButton" disabled aria-label="Send message">
+                    <span>→</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Secure Configuration - API moved to backend
+        const API_CONFIG = {
+            endpoint: '/api/chat', // Backend endpoint (implement this)
+            fallbackEnabled: true,
+            maxRetries: 3,
+            retryDelay: 1000
+        };
+
+        // Complete resume context for the AI (kept for when backend is implemented)
+        const RESUME_CONTEXT = `
+        Richard Gross is a Senior Product Manager with 10 years of experience in healthcare, wellness, and fintech.
+
+        CURRENT ROLE:
+        Senior Product Manager, Loyalty and Martech at Tivity Health (09/2023 – Present) - Remote
+        - Led $3M budget for SilverSneakers and Burnalong platforms
+        - Increased member retention by 19% with loyalty platform
+        - Integrated with Apple HealthKit, Google Health Connect, Garmin, Fitbit
+        - Managed Salesforce Marketing Cloud, HubSpot, Google Ads, Facebook Ads
+        - Oversaw development of internal tools for customer support and call centers
+        - Used AI tools for interactive feature prototypes
+
+        PREVIOUS EXPERIENCE:
+        1. Lokavant: Senior PM, Alerting Applications (06/2022 – 09/2023) - Remote
+           - AI/ML alerting systems and predictive modeling for clinical trials
+        
+        2. ClinOne: Senior PM, Connected Solutions (01/2021 – 06/2022) - Washington, DC
+           - Managed 2 Agile teams, rebuilt eConsent platform 25% under budget
+           - Integrated DocuSign, Twilio, Uber Health
+        
+        3. Signant Health: PM, Patient Engagement (01/2020 – 01/2021) - Washington, DC
+           - COVID virtual solution in 3 months, saved $6.3M revenue
+        
+        4. TradePMR: PM, Advisor Products (05/2018 – 01/2020) - Gainesville, FL
+           - 50% cycle time reduction, $720M AUM increase
+        
+        5. Jellyfish Health: PM, Patient Experience (12/2016 – 04/2018) - Panama City, FL
+           - 97K SMS messages, 9% no-show reduction, 82% error reduction
+        
+        6. NantHealth: PM, Home Health Devices (10/2011 – 07/2014) - Panama City, FL
+           - 1,500+ patient homes, 12 connected devices, 60% company revenue
+
+        CORE COMPETENCIES:
+        Product Strategy & Roadmapping, Business & Technical Requirements, Agile/Scrum, Go-to-Market Execution, Stakeholder Collaboration, Remote Team Leadership, Data-Informed Decision Making & KPIs, Martech & Personalization, AI/ML Strategy, AI-Driven Prototyping & Coding, Generative AI for Product Design, API & System Integrations, iOS, Android, Web Applications
+
+        CONTACT:
+        Washington, DC 20003
+        850-387-6889
+        product.manager.richard@gmail.com
+        linkedin.com/in/richardgross006
+        `;
+
+        let chatOpen = false;
+        let retryCount = 0;
+        let connectionStatus = 'offline';
+
+        // Enhanced chat toggle with accessibility
+        function toggleChat() {
+            const container = document.getElementById('chatContainer');
+            const toggle = document.querySelector('.chat-toggle');
+            chatOpen = !chatOpen;
+            
+            if (chatOpen) {
+                container.classList.add('open');
+                container.setAttribute('aria-hidden', 'false');
+                toggle.setAttribute('aria-label', 'Close chat assistant');
+                document.getElementById('chatInput').focus();
+            } else {
+                container.classList.remove('open');
+                container.setAttribute('aria-hidden', 'true');
+                toggle.setAttribute('aria-label', 'Open chat assistant');
+            }
+        }
+
+        // Enhanced message function with better error handling
+        function addMessage(content, isUser = false, isError = false) {
+            const messagesContainer = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `chat-message ${isUser ? 'user' : ''}`;
+            
+            const messageContent = isError ? `
+                <div class="message-content chat-error">
+                    ${content}
+                    <button class="chat-retry-btn" onclick="retryLastMessage()" aria-label="Retry sending message">
+                        Retry
+                    </button>
+                </div>
+            ` : `<div class="message-content">${content}</div>`;
+            
+            messageDiv.innerHTML = `
+                <div class="message-avatar ${isUser ? 'user' : 'ai'}" aria-hidden="true">${isUser ? 'U' : 'AI'}</div>
+                ${messageContent}
+            `;
+            
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            
+            // Announce new messages to screen readers
+            messagesContainer.setAttribute('aria-live', 'polite');
+        }
+
+        function showTypingIndicator() {
+            const messagesContainer = document.getElementById('chatMessages');
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'chat-message';
+            typingDiv.id = 'typing-indicator';
+            
+            typingDiv.innerHTML = `
+                <div class="message-avatar ai" aria-hidden="true">AI</div>
+                <div class="message-content typing-indicator" aria-label="AI is typing">
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                </div>
+            `;
+            
+            messagesContainer.appendChild(typingDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function removeTypingIndicator() {
+            const typingIndicator = document.getElementById('typing-indicator');
+            if (typingIndicator) {
+                typingIndicator.remove();
+            }
+        }
+
+        function updateConnectionStatus(status) {
+            const statusElement = document.getElementById('connectionStatus');
+            const indicator = statusElement.querySelector('.status-indicator');
+            const text = statusElement.querySelector('span');
+            
+            connectionStatus = status;
+            
+            switch(status) {
+                case 'online':
+                    statusElement.className = 'connection-status status-online';
+                    indicator.className = 'status-indicator indicator-online';
+                    text.textContent = 'Connected - Ask me anything about Richard!';
+                    document.getElementById('chatInput').disabled = false;
+                    document.getElementById('sendButton').disabled = false;
+                    document.getElementById('chatInput').placeholder = 'Ask about Richard\'s experience...';
+                    break;
+                case 'offline':
+                    statusElement.className = 'connection-status status-offline';
+                    indicator.className = 'status-indicator indicator-offline';
+                    text.textContent = 'Chatbot currently offline - Contact Richard directly';
+                    document.getElementById('chatInput').disabled = true;
+                    document.getElementById('sendButton').disabled = true;
+                    document.getElementById('chatInput').placeholder = 'Chat is currently offline...';
+                    break;
+            }
+        }
+
+        // Improved API call with retry logic
+        async function callChatAPI(message) {
+            try {
+                const response = await fetch(API_CONFIG.endpoint, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        message: message,
+                        context: RESUME_CONTEXT
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Server error: ${response.status} ${response.statusText}`);
+                }
+
+                const data = await response.json();
+                
+                if (data.error) {
+                    throw new Error(data.error);
+                }
+                
+                retryCount = 0; // Reset retry count on success
+                updateConnectionStatus('online');
+                return data.response || data.message;
+                
+            } catch (error) {
+                console.error('Chat API Error:', error);
+                
+                if (retryCount < API_CONFIG.maxRetries) {
+                    retryCount++;
+                    await new Promise(resolve => setTimeout(resolve, API_CONFIG.retryDelay * retryCount));
+                    return callChatAPI(message); // Recursive retry
+                }
+                
+                updateConnectionStatus('offline');
+                throw error;
+            }
+        }
+
+        // Enhanced send message with better error handling
+        let lastMessage = '';
+        
+        async function sendMessage(event) {
+            event.preventDefault();
+            
+            if (connectionStatus === 'offline') {
+                addMessage("I'm currently offline. Please contact Richard directly at product.manager.richard@gmail.com for questions about his experience.", false, false);
+                return;
+            }
+            
+            const input = document.getElementById('chatInput');
+            const sendButton = document.getElementById('sendButton');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            lastMessage = message; // Store for retry functionality
+            
+            // Add user message
+            addMessage(message, true);
+            input.value = '';
+            
+            // Show typing indicator
+            sendButton.disabled = true;
+            showTypingIndicator();
+            
+            try {
+                const response = await callChatAPI(message);
+                removeTypingIndicator();
+                addMessage(response);
+            } catch (error) {
+                removeTypingIndicator();
+                
+                let errorMessage = "I'm having trouble connecting right now. ";
+                
+                if (error.message.includes('Server error: 404')) {
+                    errorMessage += "The chat service is not available. ";
+                } else if (error.message.includes('Server error: 500')) {
+                    errorMessage += "There's a server issue. ";
+                } else if (error.message.includes('Failed to fetch')) {
+                    errorMessage += "Network connection problem. ";
+                }
+                
+                errorMessage += "Please contact Richard directly at product.manager.richard@gmail.com or 850-387-6889 for information about his background.";
+                
+                addMessage(errorMessage, false, true);
+            }
+            
+            sendButton.disabled = false;
+        }
+
+        function retryLastMessage() {
+            if (lastMessage) {
+                document.getElementById('chatInput').value = lastMessage;
+                sendMessage(new Event('submit'));
+            }
+        }
+
+        // Enhanced accessibility features
+        document.getElementById('chatInput').addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = Math.min(this.scrollHeight, 100) + 'px';
+        });
+
+        // Keyboard navigation support
+        document.getElementById('chatInput').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage(e);
+            }
+        });
+
+        // Contact item click handlers with improved accessibility
+        document.querySelectorAll('.contact-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const text = this.textContent.trim();
+                if (text.includes('@')) {
+                    window.location.href = `mailto:${text.split('\n')[1].trim()}`;
+                } else if (text.includes('linkedin')) {
+                    window.open(`https://${text.split('\n')[1].trim()}`, '_blank');
+                } else if (text.includes('-')) {
+                    window.location.href = `tel:${text.split('\n')[1].trim()}`;
+                }
+            });
+            
+            // Keyboard support
+            item.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    this.click();
+                }
+            });
+        });
+
+        // Scroll progress indicator
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const maxHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = Math.min((scrolled / maxHeight) * 100, 100);
+            document.querySelector('.scroll-progress').style.width = progress + '%';
+        });
+
+        // Enhanced parallax effect for floating orbs
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelectorAll('.orb');
+            const speed = 0.3;
+
+            parallax.forEach((element, index) => {
+                const yPos = -(scrolled * speed * (index + 1) * 0.5);
+                element.style.transform = `translateY(${yPos}px)`;
+            });
+        });
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize connection status
+            updateConnectionStatus('offline');
+            
+            // Remove problematic scroll observer that was causing white boxes
+            const sections = document.querySelectorAll('.section, .experience-card');
+            sections.forEach(section => {
+                section.style.opacity = '1';
+                section.style.transform = 'translateY(0)';
+            });
+            
+            // Test connection to backend (when implemented)
+            // testConnection();
+        });
+
+        // Future function to test backend connection
+        async function testConnection() {
+            try {
+                const response = await fetch('/api/health');
+                if (response.ok) {
+                    updateConnectionStatus('online');
+                }
+            } catch (error) {
+                updateConnectionStatus('offline');
+            }
+        }
+    </script>
+</body>
+</html>
