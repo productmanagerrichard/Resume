@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Richard Gross | Senior Product Manager</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #8b5cf6;
+            --accent: #06b6d4;
+            --text-primary: #0f172a;
+            --text-secondary: #64748b;
+            --surface: rgba(255, 255, 255, 0.9);
+            --surface-elevated: rgba(255, 255, 255, 0.95);
+            --border: rgba(148, 163, 184, 0.2);
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .grain-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noiseFilter)" opacity="0.03"/></svg>');
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero {
+            background: var(--surface-elevated);
+            backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid var(--border);
+            border-radius: 32px;
+            padding: 80px 60px;
+            margin-bottom: 40px;
+            box-shadow: 
+                0 32px 64px rgba(0, 0, 0, 0.12),
+                0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+            animation: heroEntry 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.1), transparent);
+            animation: shimmer 4s ease-in-out infinite;
+        }
+        
+        .hero-grid {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 60px;
+            align-items: center;
+        }
+        
+        .avatar-container {
+            position: relative;
+        }
+        
+        .avatar {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 64px;
+            font-weight: 800;
+            color: white;
+            box-shadow: 
+                0 20px 40px rgba(99, 102, 241, 0.3),
+                0 0 0 4px rgba(255, 255, 255, 0.1) inset;
+            animation: avatarPulse 3s ease-in-out infinite;
+            position: relative;
+        }
+        
+        .avatar::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+            z-index: -1;
+            animation: rotate 20s linear infinite;
+        }
+        
+        .hero-content h1 {
+            font-size: clamp(3rem, 5vw, 4.5rem);
+            font-weight: 900;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+            letter-spacing: -0.025em;
+        }
+        
+        .hero-content .subtitle {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+        }
+        
+        .hero-content .summary {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
+            line-height: 1.7;
+        }
+        
+        .contact-panel {
+            background: rgba(99, 102, 241, 0.05);
+            border: 1px solid rgba(99, 102, 241, 0.1);
+            border-radius: 24px;
+            padding: 32px;
+            min-width: 280px;
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.8s both;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+        }
+        
+        .contact-item:hover {
+            background: rgba(99, 102, 241, 0.1);
+            transform: translateX(4px);
+        }
+        
+        .contact-icon {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+        
+        .section {
+            background: var(--surface-elevated);
+            backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid var(--border);
+            border-radius: 32px;
+            padding: 50px;
+            margin-bottom: 40px;
+            box-shadow: 
+                0 32px 64px rgba(0, 0, 0, 0.08),
+                0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+            animation: sectionEntry 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-fill-mode: both;
+            opacity: 0;
+            transform: translateY(40px);
+        }
+        
+        .section:nth-child(2) { animation-delay: 0.1s; }
+        .section:nth-child(3) { animation-delay: 0.2s; }
+        .section:nth-child(4) { animation-delay: 0.3s; }
+        .section:nth-child(5) { animation-delay: 0.4s; }
+        .section:nth-child(6) { animation-delay: 0.5s; }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+        
+        .section-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+        }
+        
+        .section h2 {
+            font-size: 2.25rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: -0.025em;
+        }
+        
+        .experience-grid {
+            display: grid;
+            gap: 32px;
+        }
+        
+        .experience-card {
+            background: rgba(255, 255, 255, 0.6);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 36px;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .experience-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            transform: scaleY(0);
+            transform-origin: bottom;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .experience-card:hover::before {
+            transform: scaleY(1);
+            transform-origin: top;
+        }
+        
+        .experience-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 
+                0 32px 64px rgba(0, 0, 0, 0.15),
+                0 0 0 1px rgba(99, 102, 241, 0.1) inset;
+            background: rgba(255, 255, 255, 0.9);
+        }
+        
+        .job-header {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 24px;
+            align-items: start;
+            margin-bottom: 20px;
+        }
+        
+        .job-info h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+            letter-spacing: -0.025em;
+        }
+        
+        .company {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+        
+        .location {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+        
+        .duration-badge {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            white-space: nowrap;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+        }
+        
+        .achievements {
+            list-style: none;
+            margin-top: 24px;
+        }
+        
+        .achievements li {
+            position: relative;
+            margin-bottom: 16px;
+            padding-left: 28px;
+            line-height: 1.7;
+            color: var(--text-secondary);
+        }
+        
+        .achievements li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .achievements strong {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+        
+        .skill-category {
+            background: rgba(255, 255, 255, 0.6);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 32px;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .skill-category::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .skill-category:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .skill-category:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.9);
+        }
+        
+        .skill-category h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            letter-spacing: -0.025em;
+        }
+        
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .skill-tag {
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            color: var(--primary);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+        }
+        
+        .skill-tag:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 8px 16px rgba(99, 102, 241, 0.3);
+        }
+        
+        .floating-orbs {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+            animation: float 20s ease-in-out infinite;
+            filter: blur(1px);
+        }
+        
+        .orb:nth-child(1) {
+            width: 200px;
+            height: 200px;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+            animation-duration: 25s;
+        }
+        
+        .orb:nth-child(2) {
+            width: 150px;
+            height: 150px;
+            top: 70%;
+            right: 20%;
+            animation-delay: 5s;
+            animation-duration: 20s;
+        }
+        
+        .orb:nth-child(3) {
+            width: 100px;
+            height: 100px;
+            bottom: 20%;
+            left: 30%;
+            animation-delay: 10s;
+            animation-duration: 30s;
+        }
+        
+        .orb:nth-child(4) {
+            width: 120px;
+            height: 120px;
+            top: 40%;
+            right: 10%;
+            animation-delay: 15s;
+            animation-duration: 22s;
+        }
+        
+        @keyframes heroEntry {
+            0% {
+                opacity: 0;
+                transform: translateY(60px) scale(0.95);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        @keyframes sectionEntry {
+            0% {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes avatarPulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 
+                    0 20px 40px rgba(99, 102, 241, 0.3),
+                    0 0 0 4px rgba(255, 255, 255, 0.1) inset;
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 
+                    0 25px 50px rgba(99, 102, 241, 0.4),
+                    0 0 0 6px rgba(255, 255, 255, 0.2) inset;
+            }
+        }
+        
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) translateX(0px) rotate(0deg);
+            }
+            25% {
+                transform: translateY(-20px) translateX(10px) rotate(90deg);
+            }
+            50% {
+                transform: translateY(15px) translateX(-15px) rotate(180deg);
+            }
+            75% {
+                transform: translateY(-10px) translateX(5px) rotate(270deg);
+            }
+        }
+        
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+        }
+        
+        .scroll-progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+        
+        @media (max-width: 1200px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+            
+            .contact-panel {
+                min-width: auto;
+                max-width: 400px;
+                margin: 0 auto;
+            }
+        }
+        
+        .chat-toggle {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: white;
+            box-shadow: 0 8px 32px rgba(99, 102, 241, 0.4);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 1000;
+            animation: chatPulse 2s ease-in-out infinite;
+        }
+        
+        .chat-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 12px 40px rgba(99, 102, 241, 0.6);
+        }
+        
+        .chat-container {
+            position: fixed;
+            bottom: 120px;
+            right: 30px;
+            width: 400px;
+            height: 600px;
+            background: var(--surface-elevated);
+            backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            box-shadow: 0 32px 64px rgba(0, 0, 0, 0.15);
+            transform: translateY(100%) scale(0.8);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        .chat-container.open {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+        
+        .chat-header {
+            padding: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .chat-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 16px;
+        }
+        
+        .chat-info h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+        
+        .chat-info p {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+        
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .chat-message {
+            display: flex;
+            gap: 12px;
+            animation: messageSlide 0.3s ease-out;
+        }
+        
+        .chat-message.user {
+            flex-direction: row-reverse;
+        }
+        
+        .message-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+        
+        .message-avatar.ai {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+        
+        .message-avatar.user {
+            background: rgba(100, 116, 139, 0.1);
+            color: var(--text-secondary);
+        }
+        
+        .message-content {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 12px 16px;
+            max-width: 280px;
+            line-height: 1.5;
+            font-size: 0.9rem;
+        }
+        
+        .chat-message.user .message-content {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+        }
+        
+        .chat-input-container {
+            padding: 20px;
+            border-top: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.8);
+        }
+        
+        .chat-input-form {
+            display: flex;
+            gap: 12px;
+            align-items: flex-end;
+        }
+        
+        .chat-input {
+            flex: 1;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 12px 16px;
+            font-size: 0.9rem;
+            font-family: inherit;
+            background: white;
+            resize: none;
+            min-height: 20px;
+            max-height: 100px;
+            transition: all 0.2s ease;
+        }
+        
+        .chat-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+        
+        .chat-send {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            font-size: 16px;
+        }
+        
+        .chat-send:hover {
+            transform: scale(1.05);
+        }
+        
+        .chat-send:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .typing-indicator {
+            display: flex;
+            gap: 4px;
+            padding: 12px 16px;
+        }
+        
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--text-secondary);
+            animation: typing 1.4s ease-in-out infinite;
+        }
+        
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes chatPulse {
+            0%, 100% {
+                box-shadow: 0 8px 32px rgba(99, 102, 241, 0.4);
+            }
+            50% {
+                box-shadow: 0 8px 32px rgba(99, 102, 241, 0.6), 0 0 0 8px rgba(99, 102, 241, 0.1);
+            }
+        }
+        
+        @keyframes messageSlide {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes typing {
+            0%, 60%, 100% {
+                transform: translateY(0);
+                opacity: 0.4;
+            }
+            30% {
+                transform: translateY(-10px);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 16px;
+            }
+            
+            .hero, .section {
+                padding: 40px 32px;
+                border-radius: 24px;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-content .subtitle {
+                font-size: 1.25rem;
+            }
+            
+            .avatar {
+                width: 140px;
+                height: 140px;
+                font-size: 48px;
+            }
+            
+            .job-header {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .chat-container {
+                width: calc(100vw - 40px);
+                height: calc(100vh - 160px);
+                right: 20px;
+                bottom: 100px;
+            }
+            
+            .chat-toggle {
+                right: 20px;
+                bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="grain-overlay"></div>
+    <div class="scroll-indicator">
+        <div class="scroll-progress"></div>
+    </div>
+    
+    <div class="floating-orbs">
+        <div class="orb"></div>
+        <div class="orb"></div>
+        <div class="orb"></div>
+        <div class="orb"></div>
+    </div>
+    
+    <div class="container">
+        <section class="hero">
+            <div class="hero-grid">
+                <div class="avatar-container">
+                    <div class="avatar">RG</div>
+                </div>
+                
+                <div class="hero-content">
+                    <h1>Richard Gross</h1>
+                    <div class="subtitle">Senior Product Manager</div>
+                    <div class="summary">
+                        Strategic Product Manager with <strong>10 years of experience</strong> building and scaling digital SaaS solutions across healthcare, wellness, and fintech. Expert in turning company strategy into product vision, leading cross-functional teams, and launching platforms that drive measurable ROI.
+                    </div>
+                </div>
+                
+                <div class="contact-panel">
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div>Washington, DC 20003</div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📞</div>
+                        <div>850-387-6889</div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">✉️</div>
+                        <div>product.manager.richard@gmail.com</div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">💼</div>
+                        <div>linkedin.com/in/richardgross006</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-header">
+                <div class="section-icon">💼</div>
+                <h2>Professional Experience</h2>
+            </div>
+            
+            <div class="experience-grid">
+                <div class="experience-card">
+                    <div class="job-header">
+                        <div class="job-info">
+                            <h3>Senior Product Manager, Loyalty and Martech</h3>
+                            <div class="company">Tivity Health</div>
+                            <div class="location">Remote</div>
+                        </div>
+                        <div class="duration-badge">09/2023 – Present</div>
+                    </div>
+                    <ul class="achievements">
+                        <li>Led user engagement and loyalty strategy for SilverSneakers and Burnalong (digital wellness and gym network platforms), overseeing a <strong>$3M annual budget</strong>.</li>
+                        <li>Defined and maintained a product roadmap that launched a loyalty and rewards platform based on user activity and behavioral segmentation, increasing member subscription retention by <strong>19%</strong>.</li>
+                        <li>Collaborated with senior engineers and architects to scope technical feasibility and implementation of personalized loyalty features, driven by integrations with Apple HealthKit, Google Health Connect, Garmin, and Fitbit.</li>
+                        <li>Rolled out gamification and AI/ML personalization features, leveraging usage data, gym check-ins, and segmentation analytics.</li>
+                        <li>Directed Martech initiatives across Salesforce Marketing Cloud, Hubspot, Google Ads, Facebook Ads, and other direct marketing channels, aligning product features with acquisition and engagement strategies.</li>
+                        <li>Oversaw development of internal tools supporting customer support, call center operations, and gym network account management.</li>
+                        <li>Leveraged AI tools to create interactive feature prototypes, accelerating product requirement validation during early design phases.</li>
+                    </ul>
+                </div>
+
+                <div class="experience-card">
+                    <div class="job-header">
+                        <div class="job-info">
+                            <h3>Senior Product Manager, Alerting Applications</h3>
+                            <div class="company">Lokavant</div>
+                            <div class="location">Remote</div>
+                        </div>
+                        <div class="duration-badge">06/2022 – 09/2023</div>
+                    </div>
+                    <ul class="achievements">
+                        <li>Led development of a dynamic AI/ML alerting system, configurable data visualization suite, and integrated predictive modeling, collectively surfacing key risks and bottlenecks, enabling early issue detection, and driving more proactive clinical trial planning and enrollment forecasting across customer portfolios.</li>
+                        <li>Partnered with engineering and data science teams to ensure feasibility and scalability of complex analytical and ML features.</li>
+                        <li>Used stakeholder feedback and usage analytics to iteratively optimize key platform capabilities and prioritize roadmap features.</li>
+                    </ul>
+                </div>
+
+                <div class="experience-card">
+                    <div class="job-header">
+                        <div class="job-info">
+                            <h3>Senior Product Manager, Connected Solutions</h3>
+                            <div class="company">ClinOne</div>
+                            <div class="location">Washington, DC</div>
+                        </div>
+                        <div class="duration-badge">01/2021 – 06/2022</div>
+                    </div>
+                    <ul class="achievements">
+                        <li>Managed two Agile scrum teams responsible for connected health device solutions, aligning feature delivery with broader strategic product goals.</li>
+                        <li>Rebuilt ClinOne's eConsent platform with improved UX and accessibility, delivering the project <strong>25% under budget</strong> and reducing patient onboarding time.</li>
+                        <li>Served as the main product liaison between customers, QA, engineering, and compliance teams to ensure scalability and audit readiness.</li>
+                        <li>Integrated multiple third-party platforms including DocuSign, Twilio (SMS/Chat/Video), and Uber Health to expand the feature set.</li>
+                    </ul>
+                </div>
+
+                <div class="experience-card">
+                    <div class="job-header">
+                        <div class="job-info">
+                            <h3>Product Manager, Patient Engagement</h3>
+                            <div class="company">Signant Health</div>
+                            <div class="location">Washington, DC</div>
+                        </div>
+                        <div class="duration-badge">01/2020 – 01/2021</div>
+                    </div>
+                    <ul class="achievements">
+                        <li>Spearheaded mobile and web product enhancements to support patient engagement in clinical trials.</li>
+                        <li>Delivered a virtual visit solution in under <strong>3 months</strong> at the onset of the COVID-19 pandemic, safeguarding 14 ongoing trials and over <strong>$6.3M in revenue</strong>.</li>
+                        <li>Introduced digital scheduling, remote content libraries, and other self-service features to improve protocol adherence and user engagement.</li>
+                    </ul>
+                </div>
+
+                <div class="experience-card">
+                    <div class="job-header">
+                        <div class="job-info">
+                            <h3>Product Manager, Advisor Products</h3>
+                            <div class="company">TradePMR</div>
+                            <div class="location">Gainesville, FL</div>
+                        </div>
+                        <div class="duration-badge">05/2018 – 01/2020</div>
+                    </div>
+                    <ul class="achievements">
+                        <li>Managed a 12-month roadmap across multiple development squads supporting advisor-facing desktop and web applications.</li>
+                        <li>Reduced account opening cycle times by nearly <strong>50%</strong> by digitizing forms and optimizing operational approval workflows.</li>
+                        <li>Designed and launched a model marketplace for investment strategies, contributing to an <strong>8% ($720M) increase</strong> in assets under management.</li>
+                    </ul>
+                </div>
+
+                <div class="experience-card">
+                    <div class="job-header">
+                        <div class="job-info">
+                            <h3>Product Manager, Patient Experience</h3>
+                            <div class="company">Jellyfish Health</div>
+                            <div class="location">Panama City, FL</div>
+                        </div>
+                        <div class="duration-badge">12/2016 – 04/2018</div>
+                    </div>
+                    <ul class="achievements">
+                        <li>Launched a patient self-scheduling and wait-time management system for urgent care and occupational health clinics.</li>
+                        <li>Designed an SMS-based appointment reminder system that sent over <strong>97,000 messages</strong> in the first year and reduced no-show rates by <strong>9%</strong>.</li>
+                        <li>Digitized clinic intake forms, reducing documentation time by <strong>15%</strong> and cutting transcription errors by <strong>82%</strong>.</li>
+                    </ul>
+                </div>
+
+                <div class="experience-card">
+                    <div class="job-header">
+                        <div class="job-info">
+                            <h3>Product Manager, Home Health Devices / Project Manager, Device Integrations</h3>
+                            <div class="company">NantHealth</div>
+                            <div class="location">Panama City, FL</div>
+                        </div>
+                        <div class="duration-badge">10/2011 – 07/2014</div>
+                    </div>
+                    <ul class="achievements">
+                        <li>Led development of a hybrid hardware/software home health monitoring platform for chronic care, integrating <strong>12 connected medical devices</strong>.</li>
+                        <li>Piloted deployment to <strong>1,500+ patient homes</strong>, achieving strong adoption and improving remote health data collection.</li>
+                        <li>Delivered <strong>24+ complex system integration projects</strong> for hospital clients, accounting for over <strong>60% of company revenue.</li>
+                        <li>Directed creation and testing of <strong>30+ device communication protocols</strong> to ensure compatibility with EMR/EHR systems.</li>
