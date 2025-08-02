@@ -1241,15 +1241,16 @@
     </div>
 
     <script>
-        // Secure Configuration - API moved to backend
+        // API Configuration - Now pointing to your Vercel backend
         const API_CONFIG = {
-            endpoint: '/api/chat', // Backend endpoint (implement this)
+            endpoint: '/api/chat',
+            healthEndpoint: '/api/health',
             fallbackEnabled: true,
             maxRetries: 3,
             retryDelay: 1000
         };
 
-        // Complete resume context for the AI (kept for when backend is implemented)
+        // Complete resume context for the AI
         const RESUME_CONTEXT = `
         Richard Gross is a Senior Product Manager with 10 years of experience in healthcare, wellness, and fintech.
 
@@ -1294,7 +1295,7 @@
 
         let chatOpen = false;
         let retryCount = 0;
-        let connectionStatus = 'offline';
+        let connectionStatus = 'checking';
 
         // Enhanced chat toggle with accessibility
         function toggleChat() {
@@ -1306,7 +1307,9 @@
                 container.classList.add('open');
                 container.setAttribute('aria-hidden', 'false');
                 toggle.setAttribute('aria-label', 'Close chat assistant');
-                document.getElementById('chatInput').focus();
+                if (connectionStatus === 'online') {
+                    document.getElementById('chatInput').focus();
+                }
             } else {
                 container.classList.remove('open');
                 container.setAttribute('aria-hidden', 'true');
@@ -1391,12 +1394,22 @@
                     document.getElementById('sendButton').disabled = true;
                     document.getElementById('chatInput').placeholder = 'Chat is currently offline...';
                     break;
+                case 'checking':
+                    statusElement.className = 'connection-status status-offline';
+                    indicator.className = 'status-indicator indicator-offline';
+                    text.textContent = 'Checking connection...';
+                    document.getElementById('chatInput').disabled = true;
+                    document.getElementById('sendButton').disabled = true;
+                    document.getElementById('chatInput').placeholder = 'Connecting...';
+                    break;
             }
         }
 
         // Improved API call with retry logic
         async function callChatAPI(message) {
             try {
+                console.log('Sending message to API:', message);
+                
                 const response = await fetch(API_CONFIG.endpoint, {
                     method: 'POST',
                     headers: {
@@ -1408,11 +1421,16 @@
                     })
                 });
 
+                console.log('API Response status:', response.status);
+
                 if (!response.ok) {
+                    const errorText = await response.text();
+                    console.error('API Error Response:', errorText);
                     throw new Error(`Server error: ${response.status} ${response.statusText}`);
                 }
 
                 const data = await response.json();
+                console.log('API Response data:', data);
                 
                 if (data.error) {
                     throw new Error(data.error);
@@ -1427,6 +1445,7 @@
                 
                 if (retryCount < API_CONFIG.maxRetries) {
                     retryCount++;
+                    console.log(`Retrying... attempt ${retryCount}`);
                     await new Promise(resolve => setTimeout(resolve, API_CONFIG.retryDelay * retryCount));
                     return callChatAPI(message); // Recursive retry
                 }
@@ -1485,13 +1504,40 @@
                 addMessage(errorMessage, false, true);
             }
             
-            sendButton.disabled = false;
+            sendButton.disabled = connectionStatus === 'offline';
         }
 
         function retryLastMessage() {
             if (lastMessage) {
                 document.getElementById('chatInput').value = lastMessage;
                 sendMessage(new Event('submit'));
+            }
+        }
+
+        // Test connection to backend
+        async function testConnection() {
+            console.log('Testing connection to backend...');
+            updateConnectionStatus('checking');
+            
+            try {
+                const response = await fetch(API_CONFIG.healthEndpoint);
+                console.log('Health check response:', response.status);
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log('Health check data:', data);
+                    updateConnectionStatus('online');
+                    
+                    // Clear the default offline message and show welcome
+                    const messagesContainer = document.getElementById('chatMessages');
+                    messagesContainer.innerHTML = '';
+                    addMessage("Hi! I'm Richard's AI assistant. I can answer questions about his experience, skills, and background. What would you like to know?");
+                } else {
+                    throw new Error('Health check failed');
+                }
+            } catch (error) {
+                console.error('Connection test failed:', error);
+                updateConnectionStatus('offline');
             }
         }
 
@@ -1503,7 +1549,7 @@
 
         // Keyboard navigation support
         document.getElementById('chatInput').addEventListener('keydown', function(e) {
-            if (e.key === 'Enter' && !e.shiftKey) {
+            if (e.key === 'Enter' && !e.shiftKey && connectionStatus === 'online') {
                 e.preventDefault();
                 sendMessage(e);
             }
@@ -1553,8 +1599,7 @@
 
         // Initialize the application
         document.addEventListener('DOMContentLoaded', function() {
-            // Initialize connection status
-            updateConnectionStatus('offline');
+            console.log('Page loaded, testing connection...');
             
             // Remove problematic scroll observer that was causing white boxes
             const sections = document.querySelectorAll('.section, .experience-card');
@@ -1563,21 +1608,9 @@
                 section.style.transform = 'translateY(0)';
             });
             
-            // Test connection to backend (when implemented)
-            // testConnection();
+            // Test connection to backend
+            testConnection();
         });
-
-        // Future function to test backend connection
-        async function testConnection() {
-            try {
-                const response = await fetch('/api/health');
-                if (response.ok) {
-                    updateConnectionStatus('online');
-                }
-            } catch (error) {
-                updateConnectionStatus('offline');
-            }
-        }
     </script>
 </body>
 </html>
