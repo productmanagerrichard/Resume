@@ -20,8 +20,8 @@
             --accent: #06b6d4;
             --text-primary: #0f172a;
             --text-secondary: #64748b;
-            --surface: rgba(255, 255, 255, 0.9);
-            --surface-elevated: rgba(255, 255, 255, 0.95);
+            --surface: rgba(255, 255, 255, 0.95);
+            --surface-elevated: rgba(255, 255, 255, 0.98);
             --border: rgba(148, 163, 184, 0.2);
         }
         
@@ -41,7 +41,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('data:image/svg+xml,<svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noiseFilter)" opacity="0.03"/></svg>');
+            background: url('data:image/svg+xml,<svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noiseFilter)" opacity="0.02"/></svg>');
             pointer-events: none;
             z-index: 1;
         }
@@ -56,15 +56,12 @@
         
         .hero {
             background: var(--surface-elevated);
-            backdrop-filter: blur(20px) saturate(180%);
             border: 1px solid var(--border);
             border-radius: 32px;
-            padding: 80px 60px;
+            padding: 60px 40px;
             margin-bottom: 40px;
-            box-shadow: 
-                0 32px 64px rgba(0, 0, 0, 0.12),
-                0 0 0 1px rgba(255, 255, 255, 0.05) inset;
-            animation: heroEntry 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            animation: fadeInUp 0.6s ease-out;
             position: relative;
             overflow: hidden;
         }
@@ -76,14 +73,14 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.1), transparent);
-            animation: shimmer 4s ease-in-out infinite;
+            background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.05), transparent);
+            animation: shimmer 6s ease-in-out infinite;
         }
         
         .hero-grid {
             display: grid;
             grid-template-columns: auto 1fr auto;
-            gap: 60px;
+            gap: 40px;
             align-items: center;
         }
         
@@ -92,27 +89,24 @@
         }
         
         .avatar {
-            width: 180px;
-            height: 180px;
+            width: 160px;
+            height: 160px;
             border-radius: 50%;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 64px;
+            font-size: 56px;
             font-weight: 800;
             color: white;
-            box-shadow: 
-                0 20px 40px rgba(99, 102, 241, 0.3),
-                0 0 0 4px rgba(255, 255, 255, 0.1) inset;
-            animation: avatarPulse 3s ease-in-out infinite;
+            box-shadow: 0 16px 32px rgba(99, 102, 241, 0.25);
             position: relative;
         }
         
         .avatar::after {
             content: '';
             position: absolute;
-            inset: -4px;
+            inset: -3px;
             border-radius: 50%;
             background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
             z-index: -1;
@@ -120,30 +114,27 @@
         }
         
         .hero-content h1 {
-            font-size: clamp(3rem, 5vw, 4.5rem);
+            font-size: clamp(2.5rem, 4vw, 4rem);
             font-weight: 900;
             margin-bottom: 12px;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
             letter-spacing: -0.025em;
         }
         
         .hero-content .subtitle {
-            font-size: 1.75rem;
+            font-size: clamp(1.25rem, 2.5vw, 1.5rem);
             font-weight: 600;
             color: var(--text-secondary);
-            margin-bottom: 24px;
-            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+            margin-bottom: 20px;
         }
         
         .hero-content .summary {
-            font-size: 1.1rem;
+            font-size: clamp(1rem, 1.5vw, 1.1rem);
             color: var(--text-secondary);
             max-width: 600px;
-            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
             line-height: 1.7;
         }
         
@@ -153,7 +144,6 @@
             border-radius: 24px;
             padding: 32px;
             min-width: 280px;
-            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.8s both;
         }
         
         .contact-item {
@@ -163,7 +153,7 @@
             margin-bottom: 16px;
             padding: 12px 16px;
             border-radius: 12px;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.3s ease;
             cursor: pointer;
         }
         
@@ -183,18 +173,12 @@
         
         .section {
             background: var(--surface-elevated);
-            backdrop-filter: blur(20px) saturate(180%);
             border: 1px solid var(--border);
             border-radius: 32px;
             padding: 50px;
             margin-bottom: 40px;
-            box-shadow: 
-                0 32px 64px rgba(0, 0, 0, 0.08),
-                0 0 0 1px rgba(255, 255, 255, 0.05) inset;
-            animation: sectionEntry 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            animation-fill-mode: both;
-            opacity: 1;
-            transform: translateY(0);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
+            /* Removed problematic backdrop-filter and complex animations */
         }
         
         .section-header {
@@ -217,7 +201,7 @@
         }
         
         .section h2 {
-            font-size: 2.25rem;
+            font-size: clamp(1.75rem, 3vw, 2.25rem);
             font-weight: 800;
             color: var(--text-primary);
             letter-spacing: -0.025em;
@@ -229,11 +213,11 @@
         }
         
         .experience-card {
-            background: rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.8);
             border: 1px solid var(--border);
             border-radius: 24px;
             padding: 36px;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
         }
@@ -248,7 +232,7 @@
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             transform: scaleY(0);
             transform-origin: bottom;
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: transform 0.3s ease;
         }
         
         .experience-card:hover::before {
@@ -257,11 +241,9 @@
         }
         
         .experience-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 
-                0 32px 64px rgba(0, 0, 0, 0.15),
-                0 0 0 1px rgba(99, 102, 241, 0.1) inset;
-            background: rgba(255, 255, 255, 0.9);
+            transform: translateY(-4px);
+            box-shadow: 0 24px 48px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.95);
         }
         
         .job-header {
@@ -273,7 +255,7 @@
         }
         
         .job-info h3 {
-            font-size: 1.5rem;
+            font-size: clamp(1.25rem, 2vw, 1.5rem);
             font-weight: 700;
             color: var(--text-primary);
             margin-bottom: 4px;
@@ -281,7 +263,7 @@
         }
         
         .company {
-            font-size: 1.25rem;
+            font-size: clamp(1.1rem, 1.5vw, 1.25rem);
             font-weight: 600;
             color: var(--primary);
             margin-bottom: 8px;
@@ -300,7 +282,7 @@
             font-size: 0.9rem;
             font-weight: 600;
             white-space: nowrap;
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25);
         }
         
         .achievements {
@@ -314,6 +296,7 @@
             padding-left: 28px;
             line-height: 1.7;
             color: var(--text-secondary);
+            font-size: clamp(0.9rem, 1.2vw, 1rem);
         }
         
         .achievements li::before {
@@ -333,16 +316,16 @@
         
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 24px;
         }
         
         .skill-category {
-            background: rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.8);
             border: 1px solid var(--border);
             border-radius: 20px;
             padding: 32px;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
         }
@@ -357,7 +340,7 @@
             background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
             transform: scaleX(0);
             transform-origin: left;
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: transform 0.3s ease;
         }
         
         .skill-category:hover::before {
@@ -365,13 +348,13 @@
         }
         
         .skill-category:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            background: rgba(255, 255, 255, 0.9);
+            transform: translateY(-4px);
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.08);
+            background: rgba(255, 255, 255, 0.95);
         }
         
         .skill-category h3 {
-            font-size: 1.3rem;
+            font-size: clamp(1.1rem, 1.5vw, 1.3rem);
             font-weight: 700;
             color: var(--text-primary);
             margin-bottom: 20px;
@@ -390,19 +373,20 @@
             color: var(--primary);
             padding: 8px 16px;
             border-radius: 20px;
-            font-size: 0.9rem;
+            font-size: clamp(0.8rem, 1vw, 0.9rem);
             font-weight: 500;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.2s ease;
             cursor: pointer;
         }
         
         .skill-tag:hover {
             background: var(--primary);
             color: white;
-            transform: translateY(-2px) scale(1.05);
-            box-shadow: 0 8px 16px rgba(99, 102, 241, 0.3);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 12px rgba(99, 102, 241, 0.25);
         }
         
+        /* Simplified floating orbs - no scroll parallax to prevent white blocks */
         .floating-orbs {
             position: fixed;
             top: 0;
@@ -416,8 +400,8 @@
         .orb {
             position: absolute;
             border-radius: 50%;
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
-            animation: float 20s ease-in-out infinite;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(139, 92, 246, 0.05));
+            animation: float 25s ease-in-out infinite;
             filter: blur(1px);
         }
         
@@ -427,34 +411,22 @@
             top: 10%;
             left: 10%;
             animation-delay: 0s;
-            animation-duration: 25s;
         }
         
         .orb:nth-child(2) {
             width: 150px;
             height: 150px;
-            top: 70%;
-            right: 20%;
-            animation-delay: 5s;
-            animation-duration: 20s;
+            top: 60%;
+            right: 15%;
+            animation-delay: 8s;
         }
         
         .orb:nth-child(3) {
             width: 100px;
             height: 100px;
             bottom: 20%;
-            left: 30%;
-            animation-delay: 10s;
-            animation-duration: 30s;
-        }
-        
-        .orb:nth-child(4) {
-            width: 120px;
-            height: 120px;
-            top: 40%;
-            right: 10%;
-            animation-delay: 15s;
-            animation-duration: 22s;
+            left: 20%;
+            animation-delay: 16s;
         }
         
         /* Chatbot Styles */
@@ -473,15 +445,14 @@
             justify-content: center;
             font-size: 28px;
             color: white;
-            box-shadow: 0 8px 32px rgba(99, 102, 241, 0.4);
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 8px 24px rgba(99, 102, 241, 0.3);
+            transition: all 0.3s ease;
             z-index: 1000;
-            animation: chatPulse 2s ease-in-out infinite;
         }
         
         .chat-toggle:hover {
-            transform: scale(1.1);
-            box-shadow: 0 12px 40px rgba(99, 102, 241, 0.6);
+            transform: scale(1.05);
+            box-shadow: 0 12px 32px rgba(99, 102, 241, 0.4);
         }
         
         .chat-container {
@@ -491,13 +462,12 @@
             width: 400px;
             height: 600px;
             background: var(--surface-elevated);
-            backdrop-filter: blur(20px) saturate(180%);
             border: 1px solid var(--border);
             border-radius: 24px;
-            box-shadow: 0 32px 64px rgba(0, 0, 0, 0.15);
-            transform: translateY(100%) scale(0.8);
+            box-shadow: 0 24px 48px rgba(0, 0, 0, 0.12);
+            transform: translateY(100%) scale(0.9);
             opacity: 0;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.3s ease;
             z-index: 999;
             display: flex;
             flex-direction: column;
@@ -583,7 +553,7 @@
         }
         
         .message-content {
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.9);
             border: 1px solid var(--border);
             border-radius: 16px;
             padding: 12px 16px;
@@ -601,7 +571,7 @@
         .chat-input-container {
             padding: 20px;
             border-top: 1px solid var(--border);
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.9);
         }
         
         .chat-input-form {
@@ -750,28 +720,6 @@
             background: #dc3545;
         }
         
-        @keyframes heroEntry {
-            0% {
-                opacity: 0;
-                transform: translateY(60px) scale(0.95);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-        
-        @keyframes sectionEntry {
-            0% {
-                opacity: 0;
-                transform: translateY(40px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
         @keyframes fadeInUp {
             0% {
                 opacity: 0;
@@ -780,21 +728,6 @@
             100% {
                 opacity: 1;
                 transform: translateY(0);
-            }
-        }
-        
-        @keyframes avatarPulse {
-            0%, 100% {
-                transform: scale(1);
-                box-shadow: 
-                    0 20px 40px rgba(99, 102, 241, 0.3),
-                    0 0 0 4px rgba(255, 255, 255, 0.1) inset;
-            }
-            50% {
-                transform: scale(1.05);
-                box-shadow: 
-                    0 25px 50px rgba(99, 102, 241, 0.4),
-                    0 0 0 6px rgba(255, 255, 255, 0.2) inset;
             }
         }
         
@@ -810,25 +743,16 @@
         
         @keyframes float {
             0%, 100% {
-                transform: translateY(0px) translateX(0px) rotate(0deg);
+                transform: translateY(0px) translateX(0px);
             }
             25% {
-                transform: translateY(-20px) translateX(10px) rotate(90deg);
+                transform: translateY(-15px) translateX(10px);
             }
             50% {
-                transform: translateY(15px) translateX(-15px) rotate(180deg);
+                transform: translateY(10px) translateX(-10px);
             }
             75% {
-                transform: translateY(-10px) translateX(5px) rotate(270deg);
-            }
-        }
-        
-        @keyframes chatPulse {
-            0%, 100% {
-                box-shadow: 0 8px 32px rgba(99, 102, 241, 0.4);
-            }
-            50% {
-                box-shadow: 0 8px 32px rgba(99, 102, 241, 0.6), 0 0 0 8px rgba(99, 102, 241, 0.1);
+                transform: translateY(-8px) translateX(5px);
             }
         }
         
@@ -854,17 +778,22 @@
             }
         }
         
-        @media (max-width: 1200px) {
+        /* Mobile Responsive Design */
+        @media (max-width: 1024px) {
             .hero-grid {
                 grid-template-columns: 1fr;
-                gap: 40px;
+                gap: 32px;
                 text-align: center;
             }
             
             .contact-panel {
                 min-width: auto;
-                max-width: 400px;
+                max-width: 500px;
                 margin: 0 auto;
+            }
+            
+            .skills-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             }
         }
         
@@ -874,22 +803,29 @@
             }
             
             .hero, .section {
-                padding: 40px 32px;
-                border-radius: 24px;
+                padding: 32px 24px;
+                border-radius: 20px;
+                margin-bottom: 24px;
             }
             
-            .hero-content h1 {
-                font-size: 2.5rem;
-            }
-            
-            .hero-content .subtitle {
-                font-size: 1.25rem;
+            .hero-grid {
+                gap: 24px;
             }
             
             .avatar {
-                width: 140px;
-                height: 140px;
-                font-size: 48px;
+                width: 120px;
+                height: 120px;
+                font-size: 42px;
+            }
+            
+            .section-header {
+                margin-bottom: 24px;
+            }
+            
+            .section-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
             }
             
             .job-header {
@@ -897,20 +833,79 @@
                 gap: 16px;
             }
             
+            .duration-badge {
+                align-self: start;
+                font-size: 0.8rem;
+                padding: 6px 12px;
+            }
+            
+            .experience-card {
+                padding: 24px;
+            }
+            
+            .skill-category {
+                padding: 24px;
+            }
+            
             .skills-grid {
                 grid-template-columns: 1fr;
             }
             
             .chat-container {
-                width: calc(100vw - 40px);
-                height: calc(100vh - 160px);
-                right: 20px;
-                bottom: 100px;
+                width: calc(100vw - 20px);
+                height: calc(100vh - 140px);
+                right: 10px;
+                bottom: 90px;
+                border-radius: 16px;
             }
             
             .chat-toggle {
                 right: 20px;
                 bottom: 20px;
+                width: 60px;
+                height: 60px;
+                font-size: 24px;
+            }
+            
+            .hero-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-panel {
+                max-width: none;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 16px 12px;
+            }
+            
+            .hero, .section {
+                padding: 24px 20px;
+                border-radius: 16px;
+            }
+            
+            .experience-card {
+                padding: 20px;
+            }
+            
+            .skill-category {
+                padding: 20px;
+            }
+            
+            .chat-container {
+                width: calc(100vw - 16px);
+                right: 8px;
+                bottom: 80px;
+            }
+            
+            .chat-toggle {
+                right: 16px;
+                bottom: 16px;
+                width: 56px;
+                height: 56px;
+                font-size: 22px;
             }
         }
     </style>
@@ -922,7 +917,6 @@
     </div>
     
     <div class="floating-orbs" role="presentation" aria-hidden="true">
-        <div class="orb" aria-hidden="true"></div>
         <div class="orb" aria-hidden="true"></div>
         <div class="orb" aria-hidden="true"></div>
         <div class="orb" aria-hidden="true"></div>
@@ -939,7 +933,7 @@
                     <h1>Richard Gross</h1>
                     <div class="subtitle">Senior Product Manager</div>
                     <div class="summary">
-                        Strategic Product Manager with <strong>10 years of experience</strong> building and scaling digital SaaS solutions across healthcare, wellness, and fintech. Expert in turning company strategy into product vision, leading cross-functional teams, and launching platforms that drive measurable ROI.
+                        Strategic Product Manager with <strong>10 years of experience</strong> building and scaling digital SaaS solutions across healthcare, wellness, and fintech. Demonstrated expertise in turning company strategy into product vision, collaborating with cross-functional teams, diving in with customers, and launching platforms that improve customer satisfaction, streamline operations, and drive measurable ROI.
                     </div>
                 </div>
                 
@@ -983,10 +977,10 @@
                     <ul class="achievements">
                         <li>Led user engagement and loyalty strategy for SilverSneakers and Burnalong (digital wellness and gym network platforms), overseeing a <strong>$3M annual budget</strong>.</li>
                         <li>Defined and maintained a product roadmap that launched a loyalty and rewards platform based on user activity and behavioral segmentation, increasing member subscription retention by <strong>19%</strong>.</li>
-                        <li>Collaborated with senior engineers and architects to scope technical feasibility and implementation of personalized loyalty features, driven by integrations with Apple HealthKit, Google Health Connect, Garmin, and Fitbit.</li>
-                        <li>Rolled out gamification and AI/ML personalization features, leveraging usage data, gym check-ins, and segmentation analytics.</li>
-                        <li>Directed Martech initiatives across Salesforce Marketing Cloud, Hubspot, Google Ads, Facebook Ads, and other direct marketing channels, aligning product features with acquisition and engagement strategies.</li>
-                        <li>Oversaw development of internal tools supporting customer support, call center operations, and gym network account management.</li>
+                        <li>Integrated API/SDKs for wearable devices such as <strong>Apple HealthKit, Google HealthConnect, and Garmin</strong>, providing valuable new data streams that empowered teams to deliver more personalized user experiences.</li>
+                        <li>Rolled out gamification and AI/ML-based personalization features, leveraging data from application usage, gym check-ins, and wearable devices.</li>
+                        <li>Directed Martech initiatives across <strong>Salesforce Marketing Cloud, Hubspot, Google Ads, Facebook Ads</strong>, and other direct marketing channels, aligning product features with acquisition and engagement OKRs.</li>
+                        <li>Oversaw the development of internal tools to support customer operations, call center operations, and gym network management.</li>
                         <li>Leveraged AI tools to create interactive feature prototypes, accelerating product requirement validation during early design phases.</li>
                     </ul>
                 </article>
@@ -994,16 +988,16 @@
                 <article class="experience-card">
                     <div class="job-header">
                         <div class="job-info">
-                            <h3>Senior Product Manager, Alerting Applications</h3>
+                            <h3>Senior Product Manager, Clinical Intelligence</h3>
                             <div class="company">Lokavant</div>
                             <div class="location">Remote</div>
                         </div>
                         <div class="duration-badge">06/2022 – 09/2023</div>
                     </div>
                     <ul class="achievements">
-                        <li>Led development of a dynamic AI/ML alerting system, configurable data visualization suite, and integrated predictive modeling, collectively surfacing key risks and bottlenecks, enabling early issue detection, and driving more proactive clinical trial planning and enrollment forecasting across customer portfolios.</li>
-                        <li>Partnered with engineering and data science teams to ensure feasibility and scalability of complex analytical and ML features.</li>
-                        <li>Used stakeholder feedback and usage analytics to iteratively optimize key platform capabilities and prioritize roadmap features.</li>
+                        <li>Pioneered the development of a <strong>scalable analytics platform</strong> through cross-functional collaboration with engineering and data science, ensuring the seamless integration of advanced AI/ML features that drove the company's data-driven mission.</li>
+                        <li>Launched a <strong>dynamic AI/ML alerting system</strong> that proactively identified and mitigated critical risks and bottlenecks in clinical trials, improving study start-up and execution.</li>
+                        <li>Empowered study teams with a new, configurable data visualization suite and integrated predictive modeling tools to drive more efficient trial planning and accurate enrollment forecasting.</li>
                     </ul>
                 </article>
 
@@ -1017,10 +1011,10 @@
                         <div class="duration-badge">01/2021 – 06/2022</div>
                     </div>
                     <ul class="achievements">
-                        <li>Managed two Agile scrum teams responsible for connected health device solutions, aligning feature delivery with broader strategic product goals.</li>
+                        <li>Managed <strong>two Agile scrum teams</strong> responsible for connected health device solutions, aligning feature delivery with broader strategic product goals.</li>
                         <li>Rebuilt ClinOne's eConsent platform with improved UX and accessibility, delivering the project <strong>25% under budget</strong> and reducing patient onboarding time.</li>
                         <li>Served as the main product liaison between customers, QA, engineering, and compliance teams to ensure scalability and audit readiness.</li>
-                        <li>Integrated multiple third-party platforms including DocuSign, Twilio (SMS/Chat/Video), and Uber Health to expand the feature set.</li>
+                        <li>Integrated multiple third-party platforms, including <strong>DocuSign, Twilio (SMS/Chat/Video), and Uber Health</strong>, to expand integrated feature sets.</li>
                     </ul>
                 </article>
 
@@ -1035,7 +1029,7 @@
                     </div>
                     <ul class="achievements">
                         <li>Spearheaded mobile and web product enhancements to support patient engagement in clinical trials.</li>
-                        <li>Delivered a virtual visit solution in under <strong>3 months</strong> at the onset of the COVID-19 pandemic, safeguarding 14 ongoing trials and over <strong>$6.3M in revenue</strong>.</li>
+                        <li>Delivered a <strong>Telehealth solution in under 3 months</strong> at the onset of the COVID-19 pandemic, safeguarding 14 ongoing trials and over <strong>$6.3M in revenue</strong>.</li>
                         <li>Introduced digital scheduling, remote content libraries, and other self-service features to improve protocol adherence and user engagement.</li>
                     </ul>
                 </article>
@@ -1075,7 +1069,7 @@
                 <article class="experience-card">
                     <div class="job-header">
                         <div class="job-info">
-                            <h3>Product Manager, Home Health Devices / Project Manager, Device Integrations</h3>
+                            <h3>Product Manager, Home Health Devices and Integrations</h3>
                             <div class="company">NantHealth</div>
                             <div class="location">Panama City, FL</div>
                         </div>
@@ -1155,6 +1149,8 @@
                     <h3>Integrations & Payments</h3>
                     <div class="skill-tags">
                         <span class="skill-tag">Wearable Integrations</span>
+                        <span class="skill-tag">API Integrations</span>
+                        <span class="skill-tag">SDK Integrations</span>
                         <span class="skill-tag">Twilio</span>
                         <span class="skill-tag">DocuSign</span>
                         <span class="skill-tag">Stripe</span>
@@ -1189,9 +1185,6 @@
                         </div>
                         <div class="duration-badge">05/2002 – 03/2011</div>
                     </div>
-                    <ul class="achievements">
-                        <li>Served with distinction in naval operations, developing leadership, teamwork, and technical skills that translate directly to product management excellence.</li>
-                    </ul>
                 </article>
             </div>
         </section>
@@ -1211,16 +1204,11 @@
         
         <div class="connection-status" id="connectionStatus">
             <div class="status-indicator indicator-offline"></div>
-            <span>Chatbot currently offline - Contact Richard directly</span>
+            <span>Checking connection...</span>
         </div>
         
         <div class="chat-messages" id="chatMessages" role="log" aria-live="polite" aria-label="Chat conversation">
-            <div class="chat-message">
-                <div class="message-avatar ai" aria-hidden="true">AI</div>
-                <div class="message-content">
-                    Hi! I'm currently offline for maintenance. For questions about Richard Gross's experience and qualifications, please contact him directly at product.manager.richard@gmail.com or 850-387-6889.
-                </div>
-            </div>
+            <!-- Messages will be added dynamically -->
         </div>
         
         <div class="chat-input-container">
@@ -1228,7 +1216,7 @@
                 <textarea 
                     class="chat-input" 
                     id="chatInput" 
-                    placeholder="Chat is currently offline..."
+                    placeholder="Connecting..."
                     rows="1"
                     disabled
                     aria-label="Chat message input"
@@ -1241,7 +1229,7 @@
     </div>
 
     <script>
-        // API Configuration - Now pointing to your Vercel backend
+        // API Configuration - Updated for Gemini
         const API_CONFIG = {
             endpoint: '/api/chat',
             healthEndpoint: '/api/health',
@@ -1250,29 +1238,34 @@
             retryDelay: 1000
         };
 
-        // Complete resume context for the AI
+        // Updated resume context with latest information
         const RESUME_CONTEXT = `
         Richard Gross is a Senior Product Manager with 10 years of experience in healthcare, wellness, and fintech.
+
+        PROFESSIONAL SUMMARY:
+        Strategic Product Manager with demonstrated expertise in turning company strategy into product vision, collaborating with cross-functional teams, diving in with customers, and launching platforms that improve customer satisfaction, streamline operations, and drive measurable ROI. Comfortable navigating ambiguity, anticipating industry shifts, and leading through influence.
 
         CURRENT ROLE:
         Senior Product Manager, Loyalty and Martech at Tivity Health (09/2023 – Present) - Remote
         - Led $3M budget for SilverSneakers and Burnalong platforms
         - Increased member retention by 19% with loyalty platform
-        - Integrated with Apple HealthKit, Google Health Connect, Garmin, Fitbit
+        - Integrated Apple HealthKit, Google HealthConnect, Garmin APIs/SDKs
         - Managed Salesforce Marketing Cloud, HubSpot, Google Ads, Facebook Ads
-        - Oversaw development of internal tools for customer support and call centers
+        - Oversaw development of internal tools for customer and call center operations
         - Used AI tools for interactive feature prototypes
 
         PREVIOUS EXPERIENCE:
-        1. Lokavant: Senior PM, Alerting Applications (06/2022 – 09/2023) - Remote
-           - AI/ML alerting systems and predictive modeling for clinical trials
+        1. Lokavant: Senior PM, Clinical Intelligence (06/2022 – 09/2023) - Remote
+           - Pioneered scalable analytics platform with AI/ML features
+           - Launched dynamic AI/ML alerting system for clinical trials
+           - Built configurable data visualization and predictive modeling tools
         
         2. ClinOne: Senior PM, Connected Solutions (01/2021 – 06/2022) - Washington, DC
            - Managed 2 Agile teams, rebuilt eConsent platform 25% under budget
-           - Integrated DocuSign, Twilio, Uber Health
+           - Integrated DocuSign, Twilio (SMS/Chat/Video), Uber Health
         
         3. Signant Health: PM, Patient Engagement (01/2020 – 01/2021) - Washington, DC
-           - COVID virtual solution in 3 months, saved $6.3M revenue
+           - Telehealth solution in 3 months during COVID, saved $6.3M revenue
         
         4. TradePMR: PM, Advisor Products (05/2018 – 01/2020) - Gainesville, FL
            - 50% cycle time reduction, $720M AUM increase
@@ -1283,8 +1276,14 @@
         6. NantHealth: PM, Home Health Devices (10/2011 – 07/2014) - Panama City, FL
            - 1,500+ patient homes, 12 connected devices, 60% company revenue
 
-        CORE COMPETENCIES:
-        Product Strategy & Roadmapping, Business & Technical Requirements, Agile/Scrum, Go-to-Market Execution, Stakeholder Collaboration, Remote Team Leadership, Data-Informed Decision Making & KPIs, Martech & Personalization, AI/ML Strategy, AI-Driven Prototyping & Coding, Generative AI for Product Design, API & System Integrations, iOS, Android, Web Applications
+        SKILLS & TOOLS:
+        Jira, Confluence, Figma, A/B Testing, UserTesting, Agile/Scrum, Roadmapping, GA4, Tableau, Salesforce Marketing Cloud, Hubspot, Google Ads, Facebook Ads, API Integrations, Wearable Integrations, System Integrations, Twilio, DocuSign, AWS Personalize, Python, Vibe Coding, AI/ML (prototyping & workflows), Generative AI, Stripe, Braintree, Datadog
+
+        EDUCATION:
+        Bachelor of Science – Liberal Arts, Excelsior College, Albany, NY (05/2010)
+
+        MILITARY SERVICE:
+        U.S. Navy – Operations Specialist (05/2002 – 03/2011)
 
         CONTACT:
         Washington, DC 20003
@@ -1297,7 +1296,6 @@
         let retryCount = 0;
         let connectionStatus = 'checking';
 
-        // Enhanced chat toggle with accessibility
         function toggleChat() {
             const container = document.getElementById('chatContainer');
             const toggle = document.querySelector('.chat-toggle');
@@ -1317,7 +1315,6 @@
             }
         }
 
-        // Enhanced message function with better error handling
         function addMessage(content, isUser = false, isError = false) {
             const messagesContainer = document.getElementById('chatMessages');
             const messageDiv = document.createElement('div');
@@ -1339,8 +1336,6 @@
             
             messagesContainer.appendChild(messageDiv);
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
-            
-            // Announce new messages to screen readers
             messagesContainer.setAttribute('aria-live', 'polite');
         }
 
@@ -1405,7 +1400,6 @@
             }
         }
 
-        // Improved API call with retry logic
         async function callChatAPI(message) {
             try {
                 console.log('Sending message to API:', message);
@@ -1436,7 +1430,7 @@
                     throw new Error(data.error);
                 }
                 
-                retryCount = 0; // Reset retry count on success
+                retryCount = 0;
                 updateConnectionStatus('online');
                 return data.response || data.message;
                 
@@ -1447,7 +1441,7 @@
                     retryCount++;
                     console.log(`Retrying... attempt ${retryCount}`);
                     await new Promise(resolve => setTimeout(resolve, API_CONFIG.retryDelay * retryCount));
-                    return callChatAPI(message); // Recursive retry
+                    return callChatAPI(message);
                 }
                 
                 updateConnectionStatus('offline');
@@ -1455,7 +1449,6 @@
             }
         }
 
-        // Enhanced send message with better error handling
         let lastMessage = '';
         
         async function sendMessage(event) {
@@ -1472,13 +1465,10 @@
             
             if (!message) return;
             
-            lastMessage = message; // Store for retry functionality
-            
-            // Add user message
+            lastMessage = message;
             addMessage(message, true);
             input.value = '';
             
-            // Show typing indicator
             sendButton.disabled = true;
             showTypingIndicator();
             
@@ -1514,7 +1504,6 @@
             }
         }
 
-        // Test connection to backend
         async function testConnection() {
             console.log('Testing connection to backend...');
             updateConnectionStatus('checking');
@@ -1527,10 +1516,6 @@
                     const data = await response.json();
                     console.log('Health check data:', data);
                     updateConnectionStatus('online');
-                    
-                    // Clear the default offline message and show welcome
-                    const messagesContainer = document.getElementById('chatMessages');
-                    messagesContainer.innerHTML = '';
                     addMessage("Hi! I'm Richard's AI assistant. I can answer questions about his experience, skills, and background. What would you like to know?");
                 } else {
                     throw new Error('Health check failed');
@@ -1538,16 +1523,17 @@
             } catch (error) {
                 console.error('Connection test failed:', error);
                 updateConnectionStatus('offline');
+                addMessage("I'm currently offline for maintenance. For questions about Richard Gross's experience and qualifications, please contact him directly at product.manager.richard@gmail.com or 850-387-6889.");
             }
         }
 
-        // Enhanced accessibility features
+        // Input auto-resize
         document.getElementById('chatInput').addEventListener('input', function() {
             this.style.height = 'auto';
             this.style.height = Math.min(this.scrollHeight, 100) + 'px';
         });
 
-        // Keyboard navigation support
+        // Keyboard support
         document.getElementById('chatInput').addEventListener('keydown', function(e) {
             if (e.key === 'Enter' && !e.shiftKey && connectionStatus === 'online') {
                 e.preventDefault();
@@ -1555,7 +1541,7 @@
             }
         });
 
-        // Contact item click handlers with improved accessibility
+        // Contact item handlers
         document.querySelectorAll('.contact-item').forEach(item => {
             item.addEventListener('click', function() {
                 const text = this.textContent.trim();
@@ -1568,7 +1554,6 @@
                 }
             });
             
-            // Keyboard support
             item.addEventListener('keydown', function(e) {
                 if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
@@ -1577,7 +1562,7 @@
             });
         });
 
-        // Scroll progress indicator
+        // Simplified scroll progress (no parallax to prevent white blocks)
         window.addEventListener('scroll', () => {
             const scrolled = window.pageYOffset;
             const maxHeight = document.documentElement.scrollHeight - window.innerHeight;
@@ -1585,30 +1570,9 @@
             document.querySelector('.scroll-progress').style.width = progress + '%';
         });
 
-        // Enhanced parallax effect for floating orbs
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const parallax = document.querySelectorAll('.orb');
-            const speed = 0.3;
-
-            parallax.forEach((element, index) => {
-                const yPos = -(scrolled * speed * (index + 1) * 0.5);
-                element.style.transform = `translateY(${yPos}px)`;
-            });
-        });
-
-        // Initialize the application
+        // Initialize
         document.addEventListener('DOMContentLoaded', function() {
             console.log('Page loaded, testing connection...');
-            
-            // Remove problematic scroll observer that was causing white boxes
-            const sections = document.querySelectorAll('.section, .experience-card');
-            sections.forEach(section => {
-                section.style.opacity = '1';
-                section.style.transform = 'translateY(0)';
-            });
-            
-            // Test connection to backend
             testConnection();
         });
     </script>
