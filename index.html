@@ -178,7 +178,6 @@
             padding: 50px;
             margin-bottom: 40px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
-            /* Removed problematic backdrop-filter and complex animations */
         }
         
         .section-header {
@@ -434,8 +433,8 @@
             position: fixed;
             bottom: 30px;
             right: 30px;
-            width: 70px;
-            height: 70px;
+            width: 75px;
+            height: 75px;
             border-radius: 50%;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             border: none;
@@ -443,16 +442,54 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 28px;
+            font-size: 30px;
             color: white;
             box-shadow: 0 8px 24px rgba(99, 102, 241, 0.3);
             transition: all 0.3s ease;
             z-index: 1000;
+            animation: pulse 3s ease-in-out infinite;
+        }
+        
+        .chat-toggle::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 20px;
+            height: 20px;
+            background: #ff4444;
+            border-radius: 50%;
+            animation: bounce 2s ease-in-out infinite;
+        }
+        
+        .chat-toggle::after {
+            content: 'Ask me about Richard!';
+            position: absolute;
+            bottom: 100%;
+            right: 0;
+            margin-bottom: 12px;
+            background: var(--text-primary);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            pointer-events: none;
+            animation: tooltip-bounce 4s ease-in-out infinite 1s;
         }
         
         .chat-toggle:hover {
-            transform: scale(1.05);
+            transform: scale(1.1);
             box-shadow: 0 12px 32px rgba(99, 102, 241, 0.4);
+        }
+        
+        .chat-toggle:hover::after {
+            opacity: 1;
+            transform: translateY(0);
         }
         
         .chat-container {
@@ -778,7 +815,36 @@
             }
         }
         
-        /* Mobile Responsive Design */
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 8px 24px rgba(99, 102, 241, 0.3);
+            }
+            50% {
+                box-shadow: 0 8px 24px rgba(99, 102, 241, 0.5), 0 0 20px rgba(99, 102, 241, 0.2);
+            }
+        }
+        
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-3px);
+            }
+        }
+        
+        @keyframes tooltip-bounce {
+            0%, 85%, 100% {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            5%, 80% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Mobile Responsive Design - FIXED */
         @media (max-width: 1024px) {
             .hero-grid {
                 grid-template-columns: 1fr;
@@ -786,10 +852,32 @@
                 text-align: center;
             }
             
+            .avatar-container {
+                justify-self: center;
+            }
+            
+            .hero-content {
+                text-align: center;
+                order: 2;
+            }
+            
             .contact-panel {
+                order: 3;
                 min-width: auto;
                 max-width: 500px;
                 margin: 0 auto;
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+            
+            .contact-item {
+                margin-bottom: 0;
+                justify-content: center;
+                text-align: center;
+                flex-direction: column;
+                gap: 8px;
+                padding: 16px 12px;
             }
             
             .skills-grid {
@@ -809,13 +897,55 @@
             }
             
             .hero-grid {
-                gap: 24px;
+                grid-template-columns: 1fr;
+                gap: 32px;
+                text-align: center;
             }
             
             .avatar {
-                width: 120px;
-                height: 120px;
-                font-size: 42px;
+                width: 140px;
+                height: 140px;
+                font-size: 48px;
+                margin: 0 auto;
+            }
+            
+            .avatar-container {
+                justify-self: center;
+            }
+            
+            .hero-content {
+                text-align: center;
+                order: 2;
+            }
+            
+            .hero-content .summary {
+                max-width: 100%;
+                text-align: left;
+                margin: 0 auto;
+            }
+            
+            .contact-panel {
+                order: 3;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+                max-width: 100%;
+                margin: 0 auto;
+                padding: 24px;
+            }
+            
+            .contact-item {
+                margin-bottom: 0;
+                font-size: 0.85rem;
+                padding: 12px 8px;
+                justify-content: center;
+                text-align: center;
+                flex-direction: column;
+                gap: 6px;
+            }
+            
+            .contact-item .contact-icon {
+                font-size: 18px;
             }
             
             .section-header {
@@ -834,7 +964,7 @@
             }
             
             .duration-badge {
-                align-self: start;
+                justify-self: start;
                 font-size: 0.8rem;
                 padding: 6px 12px;
             }
@@ -862,17 +992,9 @@
             .chat-toggle {
                 right: 20px;
                 bottom: 20px;
-                width: 60px;
-                height: 60px;
-                font-size: 24px;
-            }
-            
-            .hero-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .contact-panel {
-                max-width: none;
+                width: 65px;
+                height: 65px;
+                font-size: 26px;
             }
         }
         
@@ -884,6 +1006,64 @@
             .hero, .section {
                 padding: 24px 20px;
                 border-radius: 16px;
+            }
+            
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+                text-align: center;
+            }
+            
+            .avatar {
+                width: 120px;
+                height: 120px;
+                font-size: 42px;
+                margin: 0 auto;
+            }
+            
+            .avatar-container {
+                justify-self: center;
+            }
+            
+            .hero-content {
+                text-align: center;
+                order: 2;
+            }
+            
+            .hero-content .summary {
+                text-align: left;
+                font-size: 0.95rem;
+                margin: 0 auto;
+                max-width: 100%;
+            }
+            
+            .contact-panel {
+                order: 3;
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                max-width: 100%;
+                margin: 0 auto;
+                padding: 20px;
+            }
+            
+            .contact-item {
+                margin-bottom: 0;
+                font-size: 0.8rem;
+                padding: 12px 16px;
+                justify-content: flex-start;
+                text-align: left;
+                flex-direction: row;
+                gap: 12px;
+                border-radius: 12px;
+                background: rgba(255, 255, 255, 0.5);
+            }
+            
+            .contact-item .contact-icon {
+                font-size: 16px;
+                width: 24px;
+                height: 24px;
+                flex-shrink: 0;
             }
             
             .experience-card {
@@ -903,9 +1083,43 @@
             .chat-toggle {
                 right: 16px;
                 bottom: 16px;
-                width: 56px;
-                height: 56px;
-                font-size: 22px;
+                width: 60px;
+                height: 60px;
+                font-size: 24px;
+            }
+            
+            .chat-toggle::after {
+                display: none; /* Hide tooltip on very small screens */
+            }
+        }
+        
+        /* Additional fixes for very small screens */
+        @media (max-width: 360px) {
+            .hero-content h1 {
+                font-size: 2.25rem;
+            }
+            
+            .hero-content .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .hero-content .summary {
+                font-size: 0.9rem;
+            }
+            
+            .contact-panel {
+                padding: 16px;
+            }
+            
+            .contact-item {
+                padding: 10px 14px;
+                font-size: 0.75rem;
+            }
+            
+            .avatar {
+                width: 100px;
+                height: 100px;
+                font-size: 36px;
             }
         }
     </style>
@@ -1136,21 +1350,14 @@
                     </div>
                 </div>
                 <div class="skill-category">
-                    <h3>Development Tools</h3>
+                    <h3>Technical Tools & Integrations</h3>
                     <div class="skill-tags">
                         <span class="skill-tag">Jira</span>
                         <span class="skill-tag">Confluence</span>
                         <span class="skill-tag">Figma</span>
                         <span class="skill-tag">Python</span>
                         <span class="skill-tag">Vibe Coding</span>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3>Integrations & Payments</h3>
-                    <div class="skill-tags">
                         <span class="skill-tag">Wearable Integrations</span>
-                        <span class="skill-tag">API Integrations</span>
-                        <span class="skill-tag">SDK Integrations</span>
                         <span class="skill-tag">Twilio</span>
                         <span class="skill-tag">DocuSign</span>
                         <span class="skill-tag">Stripe</span>
@@ -1197,8 +1404,8 @@
         <div class="chat-header" id="chatHeader">
             <div class="chat-avatar" aria-hidden="true">AI</div>
             <div class="chat-info">
-                <h3>Ask about Richard</h3>
-                <p>I can answer questions about his experience</p>
+                <h3>💬 Interactive Resume Chat</h3>
+                <p>Ask me about Richard's experience, skills, or projects!</p>
             </div>
         </div>
         
@@ -1401,6 +1608,33 @@
         }
 
         async function callChatAPI(message) {
+            // Handle off-topic questions with cheeky responses
+            const offTopicResponses = [
+                "I'm Richard's resume assistant, not a general knowledge bot! 🤖 Try asking about his product management experience or that time he saved $6.3M during COVID.",
+                "While I'd love to chat about everything, I'm here to talk about Richard's impressive career! Ask me about his AI/ML work or how he increased retention by 19%.",
+                "Nice try, but I'm laser-focused on Richard's professional awesomeness! 🎯 Want to know about his $3M budget management or clinical trial innovations?",
+                "I'm like a really smart business card that only talks about Richard! 💼 How about asking what makes him great at product strategy?",
+                "Oops! Wrong chatbot! I'm Richard's professional hype-person. Ask me about his wearable device integrations or telehealth solutions!",
+                "I'm programmed to be impressive, but only about Richard's career! 🚀 Try asking about his experience with Salesforce or clinical intelligence platforms.",
+                "That's outside my wheelhouse! I specialize in one thing: Richard's amazing product management journey. What aspect interests you most?"
+            ];
+
+            const resumeKeywords = [
+                'richard', 'experience', 'work', 'job', 'career', 'skill', 'product', 'manager', 'management',
+                'tivity', 'lokavant', 'clinone', 'signant', 'tradepmr', 'jellyfish', 'nanthealth',
+                'salesforce', 'ai', 'ml', 'clinical', 'health', 'fintech', 'api', 'integration',
+                'budget', 'retention', 'revenue', 'platform', 'agile', 'scrum', 'roadmap'
+            ];
+
+            const isResumeRelated = resumeKeywords.some(keyword => 
+                message.toLowerCase().includes(keyword)
+            );
+
+            if (!isResumeRelated && message.length > 10) {
+                const randomResponse = offTopicResponses[Math.floor(Math.random() * offTopicResponses.length)];
+                return randomResponse;
+            }
+
             try {
                 console.log('Sending message to API:', message);
                 
@@ -1516,7 +1750,7 @@
                     const data = await response.json();
                     console.log('Health check data:', data);
                     updateConnectionStatus('online');
-                    addMessage("Hi! I'm Richard's AI assistant. I can answer questions about his experience, skills, and background. What would you like to know?");
+                    addMessage("Hey there! 👋 I'm Richard's AI-powered resume assistant. I know everything about his 10 years in product management, from saving $6.3M during COVID to managing $3M budgets. Ask me about his experience with AI/ML, clinical trials, wearable integrations, or anything else from his impressive career!");
                 } else {
                     throw new Error('Health check failed');
                 }
