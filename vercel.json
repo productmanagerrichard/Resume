@@ -1,0 +1,16 @@
+{
+  "functions": {
+    "api/chat.js": {
+      "maxDuration": 30
+    },
+    "api/health.js": {
+      "maxDuration": 10
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/Resume_chat.html"
+    }
+  ]
+}
