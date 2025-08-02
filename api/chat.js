@@ -24,27 +24,23 @@ export default async function handler(req, res) {
     }
 
     // Get API key from environment variables
-    const apiKey = process.env.ANTHROPIC_API_KEY;
+    const apiKey = process.env.GEMINI_API_KEY;
     
     if (!apiKey) {
-      console.error('ANTHROPIC_API_KEY not found in environment variables');
+      console.error('GEMINI_API_KEY not found in environment variables');
       return res.status(500).json({ error: 'API configuration error' });
     }
 
-    // Call Anthropic API
-    const anthropicResponse = await fetch('https://api.anthropic.com/v1/messages', {
+    // Call Google Gemini API
+    const geminiResponse = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': apiKey,
-        'anthropic-version': '2023-06-01'
       },
       body: JSON.stringify({
-        model: 'claude-3-sonnet-20240229',
-        max_tokens: 1000,
-        messages: [{
-          role: 'user',
-          content: `You are an AI assistant helping visitors learn about Richard Gross's professional background. Here's his complete resume information:
+        contents: [{
+          parts: [{
+            text: `You are an AI assistant helping visitors learn about Richard Gross's professional background. Here's his complete resume information:
 
 ${context}
 
@@ -56,25 +52,32 @@ Instructions:
 - Highlight relevant achievements and numbers when appropriate
 
 User question: ${message}`
-        }]
+          }]
+        }],
+        generationConfig: {
+          temperature: 0.7,
+          topK: 40,
+          topP: 0.95,
+          maxOutputTokens: 1000,
+        }
       })
     });
 
-    if (!anthropicResponse.ok) {
-      const errorData = await anthropicResponse.text();
-      console.error('Anthropic API error:', anthropicResponse.status, errorData);
+    if (!geminiResponse.ok) {
+      const errorData = await geminiResponse.text();
+      console.error('Gemini API error:', geminiResponse.status, errorData);
       
-      if (anthropicResponse.status === 401) {
+      if (geminiResponse.status === 401) {
         return res.status(500).json({ error: 'API authentication failed' });
-      } else if (anthropicResponse.status === 429) {
+      } else if (geminiResponse.status === 429) {
         return res.status(429).json({ error: 'Rate limit exceeded. Please try again in a moment.' });
       } else {
         return res.status(500).json({ error: 'AI service temporarily unavailable' });
       }
     }
 
-    const data = await anthropicResponse.json();
-    const aiResponse = data.content[0].text;
+    const data = await geminiResponse.json();
+    const aiResponse = data.candidates[0].content.parts[0].text;
 
     return res.status(200).json({ 
       response: aiResponse,
