@@ -1608,17 +1608,7 @@
         }
 
         async function callChatAPI(message) {
-            // Handle off-topic questions with cheeky responses
-            const offTopicResponses = [
-                "I'm Richard's resume assistant, not a general knowledge bot! 🤖 Try asking about his product management experience or that time he saved $6.3M during COVID.",
-                "While I'd love to chat about everything, I'm here to talk about Richard's impressive career! Ask me about his AI/ML work or how he increased retention by 19%.",
-                "Nice try, but I'm laser-focused on Richard's professional awesomeness! 🎯 Want to know about his $3M budget management or clinical trial innovations?",
-                "I'm like a really smart business card that only talks about Richard! 💼 How about asking what makes him great at product strategy?",
-                "Oops! Wrong chatbot! I'm Richard's professional hype-person. Ask me about his wearable device integrations or telehealth solutions!",
-                "I'm programmed to be impressive, but only about Richard's career! 🚀 Try asking about his experience with Salesforce or clinical intelligence platforms.",
-                "That's outside my wheelhouse! I specialize in one thing: Richard's amazing product management journey. What aspect interests you most?"
-            ];
-
+            // Handle off-topic questions with professional responses
             const resumeKeywords = [
                 'richard', 'experience', 'work', 'job', 'career', 'skill', 'product', 'manager', 'management',
                 'tivity', 'lokavant', 'clinone', 'signant', 'tradepmr', 'jellyfish', 'nanthealth',
@@ -1631,8 +1621,7 @@
             );
 
             if (!isResumeRelated && message.length > 10) {
-                const randomResponse = offTopicResponses[Math.floor(Math.random() * offTopicResponses.length)];
-                return randomResponse;
+                return "I'm designed to answer questions about Richard Gross's professional background and experience. Please ask about his product management roles, technical skills, achievements, or any specific aspects of his career you'd like to know more about.";
             }
 
             try {
@@ -1750,7 +1739,7 @@
                     const data = await response.json();
                     console.log('Health check data:', data);
                     updateConnectionStatus('online');
-                    addMessage("Hey there! 👋 I'm Richard's AI-powered resume assistant. I know everything about his 10 years in product management, from saving $6.3M during COVID to managing $3M budgets. Ask me about his experience with AI/ML, clinical trials, wearable integrations, or anything else from his impressive career!");
+                    addMessage("Hello! I'm Richard's resume assistant. I can answer questions about his 10 years of product management experience, including his work with AI/ML platforms, clinical trial solutions, wearable device integrations, and more. What would you like to know about his background?");
                 } else {
                     throw new Error('Health check failed');
                 }
