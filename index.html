@@ -281,6 +281,8 @@
             font-size: 0.9rem;
             font-weight: 600;
             white-space: nowrap;
+            -webkit-hyphens: none;
+            hyphens: none;
             box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25);
         }
         
@@ -1739,7 +1741,7 @@
                     const data = await response.json();
                     console.log('Health check data:', data);
                     updateConnectionStatus('online');
-                    addMessage("Hello! I'm Richard's resume assistant. I can answer questions about his 10 years of product management experience, including his work with AI/ML platforms, clinical trial solutions, wearable device integrations, and more. What would you like to know about his background?");
+                    addMessage("Hello! I'm Richard's resume assistant. I can answer questions about his resume for you.");
                 } else {
                     throw new Error('Health check failed');
                 }
